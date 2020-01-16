@@ -40,7 +40,7 @@ RCT_EXPORT_METHOD(get:(NSString *)key
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(__unused RCTPromiseRejectBlock)reject)
 {
-    resolve([[self getDefaultUser] stringForKey:key]);
+    resolve([[self getDefaultUser] objectForKey:key]);
 }
 
 RCT_EXPORT_METHOD(set:(NSString *)key value:(NSString *)value
@@ -65,7 +65,7 @@ RCT_EXPORT_METHOD(getMultiple:(NSArray *)keys
 {
     NSMutableArray *result = [NSMutableArray array];
     for(NSString *key in keys) {
-        NSString *value = [[self getDefaultUser] stringForKey:key];
+        NSString *value = [[self getDefaultUser] objectForKey:key];
         [result addObject: value == nil ? [NSNull null] : value];
     }
     resolve(result);
@@ -97,7 +97,7 @@ RCT_EXPORT_METHOD(getAll:(RCTPromiseResolveBlock)resolve
     NSArray *keys = [[[self getDefaultUser] dictionaryRepresentation] allKeys];
     NSMutableDictionary *result = [NSMutableDictionary dictionary];
     for(NSString *key in keys) {
-        NSString *value = [[self getDefaultUser] stringForKey:key];
+        NSString *value = [[self getDefaultUser] objectForKey:key];
         result[key] = value == nil ? [NSNull null] : value;
     }
     resolve(result);
